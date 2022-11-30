@@ -26,6 +26,12 @@ int main(int argc, const char * argv[]) {
     int pIndex, age, time;
     int placeHist[N_HISTORY];
     
+    //읽은 내용을 저장하기 위한 배열  
+	int arr[5][8]; 
+	int i, j;
+
+ 
+    
     //------------- 1. loading patient info file ------------------------------
     //1-1. FILE pointer open
     if (argc != 2)
@@ -46,11 +52,19 @@ int main(int argc, const char * argv[]) {
     /*
     while(3 == fscanf("3가지 읽기",변수들))
     {
-    for() {fscnaf(5개 읽기);}
+    for() {fscanf(5개 읽기);}
 	}
     
     */
     
+    for(i=0; i<5; i++){
+    	for(j=0; j<8; j++){
+			fscanf(fp,"%d",&arr[i][j]);
+    		printf("%d ",arr[i][j]);
+    	}
+    	printf("\n");
+
+    }
     
     //1-3. FILE pointer close
     fclose(fp);
