@@ -1,7 +1,6 @@
 //입출력을 통해 환자 정보 구조체 생성 및 linked list 저장 코드 구현현 (ifct_database.h 함수활용
- //특정 조건에 맞는 환자의 정보 출력 코드 구현
- //환자의 전파자를 추적하고 최초 전파자를 알아내는 코드 구현 
-
+//특정 조건에 맞는 환자의 정보 출력 코드 구현
+//환자의 전파자를 추적하고 최초 전파자를 알아내는 코드 구현 
 
 #include <stdio.h>
 #include <string.h>
@@ -48,13 +47,12 @@ int main(int argc, const char * argv[]) {
     }
     
     //1-2. loading each patient informations
-    //fscanf로 샘플 파일 읽고 저장하기  
+    //fscanf로 샘플 파일 읽고 저장하기  -> 교수님 수업 중 힌트 예제 
     /*
     while(3 == fscanf("3가지 읽기",변수들))
     {
     for() {fscanf(5개 읽기);}
 	}
-    
     */
     
     for(i=0; i<5; i++){
@@ -63,8 +61,9 @@ int main(int argc, const char * argv[]) {
     		printf("%d ",arr[i][j]);
     	}
     	printf("\n");
-
     }
+    
+   
     
     //1-3. FILE pointer close
     fclose(fp);
@@ -89,14 +88,24 @@ int main(int argc, const char * argv[]) {
                 break;
                 
             case MENU_PATIENT:
-                
+            	printf("Patient index: ");
+				scanf("%d",&pIndex);
+				
+				//patient index, patient age, detected time, pathHistory 출력 
                 break;
                 
             case MENU_PLACE:
-                
+            	printf("Place Name: ");
+            	//scanf("%s",&??)
+                //printf("There are %d patients detected in %s",결과, ?? );
+            
                 break;
                 
             case MENU_AGE:
+            	/*
+            	나이 최소와 최대 입력하여 
+				patient index, age, dectedtime, pathHistory 출력 
+            	*/
                 
                 break;
                 

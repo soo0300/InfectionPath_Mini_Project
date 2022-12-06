@@ -96,3 +96,28 @@ char countryName[N_PLACE+1][MAX_PLACENAME] =
     "Unrecognized"
 };
 
+
+typedef struct ifs_ele{
+	//number
+	//age
+	//time
+	//place[N_HISTORY]
+	
+	int index;
+	int age;
+	int time;
+	place_t place[N_HISTORY]; // 위에 자료형 typedef 선언한 것 이용 
+	
+	
+}ifs_ele_t;
+
+ifs_ele_t ifsarrary[20];
+
+
+
+//교수님 추가하신 코드 
+char *ifctele_getPlaceName(int placeIndex){
+	return countryName[placeIndex];
+
+}
+
