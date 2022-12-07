@@ -1,10 +1,3 @@
-//
-//  ifs_element.c
-//  InfestPath
-//
-//  Created by Juyeop Kim on 2020/10/20.
-//
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -91,46 +84,40 @@ typedef struct ifs_ele {
 	place_t place[N_HISTORY]; //place[N_HISTORY]
 } ifs_ele_t;
 
-
-
 void* ifctele_getElement(int index, int age, unsigned int detected_time, int history_place[N_HISTORY])
 {
-	//main.c에서 각 정보를 받아와 ifs_ele_t 구조체에 넣는 함수. 
+	//main.c에서 각 정보를 받아와 ifs_ele_t 구조체에 넣는 함수
 	ifs_ele_t* ptr;
-	
-	ptr = malloc(500);
+	ptr = malloc(100);
 	ptr->index=index;	
-	return ptr;
+	ptr->age=age;
+	ptr->time=detected_time;
+	//ptr->place=history_place; //-> 배열 형태는 어떻게?
+	
+	printf("%i %i",index,age);
+	//printf("%d %d %d",ptr->index,ptr->age,ptr->time);
+	return ptr;	
 }
-
 
 
 int ifctele_getAge(void* obj)
 {
-	
 	ifs_ele_t* ptr = (ifs_ele_t*)obj;
-	
 	return ptr->age;
 }
+
 
 int ifctele_getHistPlaceIndex(void* obj, int index);
 unsigned int ifctele_getinfestedTime(void* obj);
 
 
-//char* ifctele_getPlaceName(int placeIndex);
-
-
-
 void ifctele_printElement(void* obj)
 {
 	ifs_ele_t* ptr = (ifs_ele_t*)obj;
-	
-	printf("NUM : %",ptr->index);
+	printf("NUM : %i\n", ptr->index);
 	printf("Age : %i\n", ptr->age);
-	printf("Time: %i\n",ptr->time);
-
-	// printf("Place:%s\n",ptr->place); 
-	
+	printf("Time: %i\n", ptr->time);
+	// printf("Place:%s\n",ptr->place); 	
 }
 
 

@@ -1,10 +1,3 @@
-//
-//  main.c
-//  infestPath
-//
-//  Created by Juyeop Kim on 2022/10/20.
-//
-
 #include <stdio.h>
 #include <string.h>
 #include "ifct_element.h"
@@ -59,20 +52,20 @@ int main(int argc, const char * argv[]) {
 	}
 	#endif
 	*/
-	
 	//ifct_element = ifctele_getElement(index,age,,,);
-
-    for(i=0; i<5; i++){
-    	for(j=0; j<4; j++){
-    		int s; 
-			fscanf(fp,"%d ",s);
-			//ifct_element = &s;
-			printf("%d",s);
-    	}
-    	printf("\n");
-    }
-    
-
+	
+	fscanf(fp,"%d",&pIndex); //파일의 첫번째 요소를 pIndex로 저장
+	fscanf(fp,"%d",&age);  //파일의 두번째 요소를 age로 저장
+	fscanf(fp,"%d",&time); //파일의 세번째 요소를 time으로 저장
+	for(i=0; i<5; i++){
+		fscanf(fp,"%d",&placeHist);
+	} 
+	ifctele_getElement(pIndex,age,time,placeHist);
+	printf("\n- - - - - - - - -\n\n");
+	 
+	 
+	 
+	 
     //1-3. FILE pointer close
     fclose(fp);
     
@@ -106,10 +99,12 @@ int main(int argc, const char * argv[]) {
                 break;
                 
             case MENU_PATIENT:
+            	
             	printf("환자의 Index를 입력해주세요: ");
             	scanf("%d",&pIndex);
             	printf("%d의 정보는... ",pIndex);
-            	ifctele_printElement(pIndex);
+            	ifctele_printElement((void*)pIndex);
+            
             	
                 break;
                 
