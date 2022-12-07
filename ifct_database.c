@@ -1,4 +1,9 @@
-//있는 그대로 활용, 제공된 함수를 header include를 통해 활용 
+//
+//  ifct_database.c
+//  Infection Path
+//  Database platform code for storing infest path elements
+//  Created by Juyeop Kim on 2022/10/20.
+//
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -218,4 +223,3 @@ void* ifctdb_getData(int index)
     
     return obj;
 }
-

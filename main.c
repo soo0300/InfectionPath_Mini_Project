@@ -1,6 +1,9 @@
-//입출력을 통해 환자 정보 구조체 생성 및 linked list 저장 코드 구현현 (ifct_database.h 함수활용
-//특정 조건에 맞는 환자의 정보 출력 코드 구현
-//환자의 전파자를 추적하고 최초 전파자를 알아내는 코드 구현 
+//
+//  main.c
+//  infestPath
+//
+//  Created by Juyeop Kim on 2022/10/20.
+//
 
 #include <stdio.h>
 #include <string.h>
@@ -15,7 +18,6 @@
 
 #define TIME_HIDE           2
 
-
 int trackInfester(int patient_no, int *detected_time, int *place);
 int main(int argc, const char * argv[]) {
     
@@ -24,12 +26,9 @@ int main(int argc, const char * argv[]) {
     FILE* fp;
     int pIndex, age, time;
     int placeHist[N_HISTORY];
-    
-    //읽은 내용을 저장하기 위한 배열  
-	int arr[5][8]; 
-	int i, j;
+    int i,j;
 
- 
+
     
     //------------- 1. loading patient info file ------------------------------
     //1-1. FILE pointer open
@@ -39,34 +38,53 @@ int main(int argc, const char * argv[]) {
         return -1;
     }
     
-    fp = fopen(argv[1],"r");
+    fp = fopen(argv[1], "r");
     if (fp == NULL)
     {
         printf("[ERROR] Failed to open database file!! (%s)\n", argv[1]);
         return -1;
     }
-    
-    //1-2. loading each patient informations
-    //fscanf로 샘플 파일 읽고 저장하기  -> 교수님 수업 중 힌트 예제 
     /*
-    while(3 == fscanf("3가지 읽기",변수들))
+    #if 
+    //1-2. loading each patient informations
+    while ( 3 == fscanf("3가지 읽기", 변수들))
     {
-    for() {fscanf(5개 읽기);}
+    	for 
+			fscanf(5개 읽기) ;
+			
+		ifct_element = ifctele_genElement(index, age, ...);
+		
+		ifctdb_addTail(ifct_element);
+		
 	}
-    */
-    
+	#endif
+	*/
+	
+	//ifct_element = ifctele_getElement(index,age,,,);
+
     for(i=0; i<5; i++){
-    	for(j=0; j<8; j++){
-			fscanf(fp,"%d",&arr[i][j]);
-    		printf("%d ",arr[i][j]);
+    	for(j=0; j<4; j++){
+    		int s; 
+			fscanf(fp,"%d ",s);
+			//ifct_element = &s;
+			printf("%d",s);
     	}
     	printf("\n");
     }
     
-   
-    
+
     //1-3. FILE pointer close
     fclose(fp);
+    
+    {
+    	int place1, place2;
+    	
+		place1 = 3;
+    	place2 = 15;
+    	
+    	printf("The first place is %s\n", ifctele_getPlaceName(place1)) ;
+    	printf("The second place is %s\n", ifctele_getPlaceName(place2)) ;
+	}
     
     do {
         printf("\n=============== INFECTION PATH MANAGEMENT PROGRAM (No. of patients : %i) =============\n", ifctdb_len());
@@ -88,24 +106,18 @@ int main(int argc, const char * argv[]) {
                 break;
                 
             case MENU_PATIENT:
-            	printf("Patient index: ");
-				scanf("%d",&pIndex);
-				
-				//patient index, patient age, detected time, pathHistory 출력 
+            	printf("환자의 Index를 입력해주세요: ");
+            	scanf("%d",&pIndex);
+            	printf("%d의 정보는... ",pIndex);
+            	ifctele_printElement(pIndex);
+            	
                 break;
                 
             case MENU_PLACE:
-            	printf("Place Name: ");
-            	//scanf("%s",&??)
-                //printf("There are %d patients detected in %s",결과, ?? );
-            
+                
                 break;
                 
             case MENU_AGE:
-            	/*
-            	나이 최소와 최대 입력하여 
-				patient index, age, dectedtime, pathHistory 출력 
-            	*/
                 
                 break;
                 
@@ -123,4 +135,3 @@ int main(int argc, const char * argv[]) {
     
     return 0;
 }
-

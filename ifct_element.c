@@ -1,7 +1,9 @@
-//이곳에 환자 정보 구조체 생성 ifct_ele_f 구조체 정의 
-//이곳에 구조체 내부 변수를 접근할 수 있는 함수 구현 
-//이곳에 환자 정보를 출력하는 함수 구현 
-
+//
+//  ifs_element.c
+//  InfestPath
+//
+//  Created by Juyeop Kim on 2020/10/20.
+//
 
 #include <stdio.h>
 #include <string.h>
@@ -53,22 +55,8 @@ typedef enum place {
 } place_t;
 
 char countryName[N_PLACE+1][MAX_PLACENAME] =
-{   "Seoul",
-    "Jeju",
-    "Tokyo",
-    "LosAngeles",
-    "NewYork",
-    "Texas",
-    "Toronto",
-    "Paris",
-    "Nice",
-    "Rome",
-    "Milan",
-    "London",
-    "Manchester",
-    "Basel",
-    "Luzern",
-    "Munich",
+{   "Seoul","Jeju","Tokyo","LosAngeles","NewYork","Texas","Toronto","Paris",
+    "Nice","Rome","Milan","London","Manchester","Basel","Luzern","Munich",
     "Frankfurt",
     "Berlin",
     "Barcelona",
@@ -96,28 +84,56 @@ char countryName[N_PLACE+1][MAX_PLACENAME] =
     "Unrecognized"
 };
 
+typedef struct ifs_ele {
+	int index; //number
+	int age; //age
+	int time; //time
+	place_t place[N_HISTORY]; //place[N_HISTORY]
+} ifs_ele_t;
 
-typedef struct ifs_ele{
-	//number
-	//age
-	//time
-	//place[N_HISTORY]
+
+
+void* ifctele_getElement(int index, int age, unsigned int detected_time, int history_place[N_HISTORY])
+{
+	//main.c에서 각 정보를 받아와 ifs_ele_t 구조체에 넣는 함수. 
+	ifs_ele_t* ptr;
 	
-	int index;
-	int age;
-	int time;
-	place_t place[N_HISTORY]; // 위에 자료형 typedef 선언한 것 이용 
-	
-	
-}ifs_ele_t;
-
-ifs_ele_t ifsarrary[20];
-
-
-
-//교수님 추가하신 코드 
-char *ifctele_getPlaceName(int placeIndex){
-	return countryName[placeIndex];
-
+	ptr = malloc(500);
+	ptr->index=index;	
+	return ptr;
 }
 
+
+
+int ifctele_getAge(void* obj)
+{
+	
+	ifs_ele_t* ptr = (ifs_ele_t*)obj;
+	
+	return ptr->age;
+}
+
+int ifctele_getHistPlaceIndex(void* obj, int index);
+unsigned int ifctele_getinfestedTime(void* obj);
+
+
+//char* ifctele_getPlaceName(int placeIndex);
+
+
+void ifctele_printElement(void* obj)
+{
+	ifs_ele_t* ptr = (ifs_ele_t*)obj;
+	
+	printf("NUM : %",ptr->index);
+	printf("Age : %i\n", ptr->age);
+	printf("Time: %i\n",ptr->time);
+
+	// printf("Place:%s\n",ptr->place); 
+	
+}
+
+
+char* ifctele_getPlaceName(int placeIndex)
+{
+	return countryName[placeIndex];
+}

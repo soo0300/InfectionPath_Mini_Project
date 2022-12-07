@@ -1,6 +1,6 @@
 [Project]
-FileName=infectionPath.dev
-Name=infectionPath
+FileName=Project1.dev
+Name=Project1
 Type=1
 Ver=2
 ObjFiles=
@@ -23,7 +23,7 @@ OverrideOutputName=
 HostApplication=
 UseCustomMakefile=0
 CustomMakefile=
-CommandLine=
+CommandLine=patientInfo_sample.txt
 Folders=
 IncludeVersionInfo=0
 SupportXPThemes=0
@@ -51,26 +51,6 @@ AutoIncBuildNr=0
 SyncProduct=1
 
 [Unit1]
-FileName=main.c
-CompileCpp=0
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit2]
-FileName=ifct_element.c
-CompileCpp=0
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit3]
 FileName=ifct_database.c
 CompileCpp=0
 Folder=
@@ -80,7 +60,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit4]
+[Unit2]
 FileName=ifct_database.h
 CompileCpp=0
 Folder=
@@ -90,8 +70,28 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit5]
+[Unit3]
+FileName=ifct_element.c
+CompileCpp=0
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit4]
 FileName=ifct_element.h
+CompileCpp=0
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit5]
+FileName=main.c
 CompileCpp=0
 Folder=
 Compile=1
