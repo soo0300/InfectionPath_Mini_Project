@@ -120,6 +120,7 @@ unsigned int ifctele_getinfestedTime(void* obj);
 //char* ifctele_getPlaceName(int placeIndex);
 
 
+
 void ifctele_printElement(void* obj)
 {
 	ifs_ele_t* ptr = (ifs_ele_t*)obj;
