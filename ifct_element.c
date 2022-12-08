@@ -50,31 +50,10 @@ typedef enum place {
 char countryName[N_PLACE+1][MAX_PLACENAME] =
 {   "Seoul","Jeju","Tokyo","LosAngeles","NewYork","Texas","Toronto","Paris",
     "Nice","Rome","Milan","London","Manchester","Basel","Luzern","Munich",
-    "Frankfurt",
-    "Berlin",
-    "Barcelona",
-    "Madrid",
-    "Amsterdam",
-    "Stockholm",
-    "Oslo",
-    "Hanoi",
-    "Bangkok",
-    "KualaLumpur",
-    "Singapore",
-    "Sydney",
-    "SaoPaulo",
-    "Cairo",
-    "Beijing",
-    "Nairobi",
-    "Cancun",
-    "BuenosAires",
-    "Reykjavik",
-    "Glasgow",
-    "Warsow",
-    "Istanbul",
-    "Dubai",
-    "CapeTown",
-    "Unrecognized"
+    "Frankfurt","Berlin","Barcelona","Madrid","Amsterdam","Stockholm","Oslo","Hanoi",
+    "Bangkok","KualaLumpur","Singapore","Sydney","SaoPaulo","Cairo","Beijing","Nairobi",
+	"Cancun","BuenosAires","Reykjavik","Glasgow","Warsow","Istanbul","Dubai","CapeTown",
+	"Unrecognized"
 };
 
 typedef struct ifs_ele {
@@ -84,6 +63,11 @@ typedef struct ifs_ele {
 	place_t place[N_HISTORY]; //place[N_HISTORY]
 } ifs_ele_t;
 
+
+
+//아래 함수를 통해 만들어진 구조체 변수가 가르키는 주소가  함수의 반환값이 되어서 나옴
+//이를 main.c에서 받기위한 변수가 ifc_element 
+//메인에서 ifc_element를 반환값으로 받고 이를 linked list에 넣는다. 이르 ㄹ위해 포인터 변수 addTail의 인수로 넘긴다..? 
 void* ifctele_getElement(int index, int age, unsigned int detected_time, int history_place[N_HISTORY])
 {
 	//main.c에서 각 정보를 받아와 ifs_ele_t 구조체에 넣는 함수
@@ -95,6 +79,7 @@ void* ifctele_getElement(int index, int age, unsigned int detected_time, int his
 	//ptr->place=history_place; //-> 배열 형태는 어떻게?
 	
 	printf("%i %i",index,age);
+	
 	//printf("%d %d %d",ptr->index,ptr->age,ptr->time);
 	return ptr;	
 }

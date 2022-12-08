@@ -15,11 +15,17 @@ int trackInfester(int patient_no, int *detected_time, int *place);
 int main(int argc, const char * argv[]) {
     
     int menu_selection;
-    void *ifct_element;
+    void *ifct_element; 
+	//구조체 변수를 다루기 위한 void 형 포인터변수 
+	//element.c에서 생성된 구조체를 linked list에 넣을 예정  
     FILE* fp;
     int pIndex, age, time;
     int placeHist[N_HISTORY];
-    int i,j;
+    
+	//추가 생성 
+	int i,j;
+	ifs_ele_t arr[5];
+	//구조체 배열을 따로 선언해야되지 않을까? 
 
 
     
@@ -37,6 +43,7 @@ int main(int argc, const char * argv[]) {
         printf("[ERROR] Failed to open database file!! (%s)\n", argv[1]);
         return -1;
     }
+    
     /*
     #if 
     //1-2. loading each patient informations
@@ -54,17 +61,19 @@ int main(int argc, const char * argv[]) {
 	*/
 	//ifct_element = ifctele_getElement(index,age,,,);
 	
+	//위의 코드 구체적 구현,, 임의 구현
+	 
 	fscanf(fp,"%d",&pIndex); //파일의 첫번째 요소를 pIndex로 저장
 	fscanf(fp,"%d",&age);  //파일의 두번째 요소를 age로 저장
 	fscanf(fp,"%d",&time); //파일의 세번째 요소를 time으로 저장
 	for(i=0; i<5; i++){
 		fscanf(fp,"%d",&placeHist);
-	} 
-	ifctele_getElement(pIndex,age,time,placeHist);
+	}  
+	
+	ifct_element = ifctele_getElement(pIndex,age,time,placeHist);
+	ifctdb_addTail(ifct_element); //list에 푸시??
+	 
 	printf("\n- - - - - - - - -\n\n");
-	 
-	 
-	 
 	 
     //1-3. FILE pointer close
     fclose(fp);
