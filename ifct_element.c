@@ -66,19 +66,23 @@ typedef struct ifs_ele {
 
 
 //아래 함수를 통해 만들어진 구조체 변수가 가르키는 주소가  함수의 반환값이 되어서 나옴
-//이를 main.c에서 받기위한 변수가 ifc_element 
-//메인에서 ifc_element를 반환값으로 받고 이를 linked list에 넣는다. 이르 ㄹ위해 포인터 변수 addTail의 인수로 넘긴다..? 
+//이를 main.c에서 ifc_element가 받을 예정 
+//메인에서 ifc_element를 반환값으로 받고 이를 linked list에 넣는다. adddTail사용하라는데 무슨의미일까
+ 
 void* ifctele_getElement(int index, int age, unsigned int detected_time, int history_place[N_HISTORY])
 {
+	int i;
 	//main.c에서 각 정보를 받아와 ifs_ele_t 구조체에 넣는 함수
 	ifs_ele_t* ptr;
-	ptr = malloc(100);
+	ptr = malloc(sizeof(ifs_ele_t));
 	ptr->index=index;	
 	ptr->age=age;
 	ptr->time=detected_time;
+	for(i = 0; i < N_HISTORY; i++) ptr->place[i] = history_place[i];
 	//ptr->place=history_place; //-> 배열 형태는 어떻게?
+	//ptr->place[0]=history_place[0]; ptr->palce[1]=history_place[1]; ...? 
 	
-	printf("%i %i",index,age);
+	printf("%i %i",ptr->index,ptr->age); //text용으로 만들어놓은거 
 	
 	//printf("%d %d %d",ptr->index,ptr->age,ptr->time);
 	return ptr;	
@@ -98,13 +102,17 @@ unsigned int ifctele_getinfestedTime(void* obj);
 
 void ifctele_printElement(void* obj)
 {
-	ifs_ele_t* ptr = (ifs_ele_t*)obj;
+	int i;
+	ifs_ele_t* ptr = (ifs_ele_t*)obj; 
 	printf("NUM : %i\n", ptr->index);
 	printf("Age : %i\n", ptr->age);
 	printf("Time: %i\n", ptr->time);
-	// printf("Place:%s\n",ptr->place); 	
+	
+	for(i = 0; i < N_HISTORY; i++){
+		printf("%d ", ptr->place[i]);
+	}
+	//장소 이름으로 대체만 하면된다.  
 }
-
 
 char* ifctele_getPlaceName(int placeIndex)
 {

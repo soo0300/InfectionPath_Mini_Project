@@ -16,7 +16,7 @@ int main(int argc, const char * argv[]) {
     
     int menu_selection;
     void *ifct_element; 
-	//구조체 변수를 다루기 위한 void 형 포인터변수 
+	//구조체 변수를 다루기 위한 void 형 포인터변수 선언 
 	//element.c에서 생성된 구조체를 linked list에 넣을 예정  
     FILE* fp;
     int pIndex, age, time;
@@ -24,11 +24,12 @@ int main(int argc, const char * argv[]) {
     
 	//추가 생성 
 	int i,j;
-	ifs_ele_t arr[5];
-	//구조체 배열을 따로 선언해야되지 않을까? 
+	int age2;
+
+	//ifs_ele_t arr[5]; 이렇게 해야하는거 아니야?  
 
 
-    
+    //BASE CODE 31줄부터 45줄까지 
     //------------- 1. loading patient info file ------------------------------
     //1-1. FILE pointer open
     if (argc != 2)
@@ -44,34 +45,23 @@ int main(int argc, const char * argv[]) {
         return -1;
     }
     
-    /*
-    #if 
-    //1-2. loading each patient informations
-    while ( 3 == fscanf("3가지 읽기", 변수들))
-    {
-    	for 
-			fscanf(5개 읽기) ;
-			
-		ifct_element = ifctele_genElement(index, age, ...);
+
+	//ifct_element = ifctele_getElement(index,age,,,);
+
+
+	for(i = 0; i < 5; i++){
+		fscanf(fp,"%d",&pIndex); //파일의 첫번째 요소를 pIndex로 저장
+		fscanf(fp,"%d",&age);  //파일의 두번째 요소를 age로 저장
+		fscanf(fp,"%d",&time); //파일의 세번째 요소를 time으로 저장
 		
-		ifctdb_addTail(ifct_element);
+		for(j=0; j<N_HISTORY; j++){
+			fscanf(fp,"%d",(placeHist+j));
+		}  
+		
+		ifct_element = ifctele_getElement(pIndex,age,time,placeHist);
+		ifctdb_addTail(ifct_element); 
 		
 	}
-	#endif
-	*/
-	//ifct_element = ifctele_getElement(index,age,,,);
-	
-	//위의 코드 구체적 구현,, 임의 구현
-	 
-	fscanf(fp,"%d",&pIndex); //파일의 첫번째 요소를 pIndex로 저장
-	fscanf(fp,"%d",&age);  //파일의 두번째 요소를 age로 저장
-	fscanf(fp,"%d",&time); //파일의 세번째 요소를 time으로 저장
-	for(i=0; i<5; i++){
-		fscanf(fp,"%d",&placeHist);
-	}  
-	
-	ifct_element = ifctele_getElement(pIndex,age,time,placeHist);
-	ifctdb_addTail(ifct_element); //list에 푸시??
 	 
 	printf("\n- - - - - - - - -\n\n");
 	 
@@ -112,7 +102,7 @@ int main(int argc, const char * argv[]) {
             	printf("환자의 Index를 입력해주세요: ");
             	scanf("%d",&pIndex);
             	printf("%d의 정보는... ",pIndex);
-            	ifctele_printElement((void*)pIndex);
+            	ifctele_printElement(ifctdb_getData(pIndex));
             
             	
                 break;
@@ -122,6 +112,13 @@ int main(int argc, const char * argv[]) {
                 break;
                 
             case MENU_AGE:
+            	printf("minimal age: ");
+            	scanf("%d",&age);
+            	printf("max age: ");
+            	scanf("%d",&age2);
+            	
+            	//ifctele_getAge(*age,*age2);
+            
                 
                 break;
                 
