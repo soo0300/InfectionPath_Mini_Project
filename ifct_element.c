@@ -60,7 +60,8 @@ typedef struct ifs_ele {
 	int index; //number
 	int age; //age
 	int time; //time
-	place_t place[N_HISTORY]; //place[N_HISTORY]
+	//place_t place[N_HISTORY]; //place[N_HISTORY] 수정하기 전, 밑에가 수정 후  
+	char place[N_HISTORY];
 } ifs_ele_t;
 
 
@@ -81,9 +82,8 @@ void* ifctele_getElement(int index, int age, unsigned int detected_time, int his
 	
 	for(i = 0; i < N_HISTORY; i++){
 		ptr->place[i] = history_place[i];	 //-> 일단 인덱스 잘 출력됨. 
-		//ptr.place[i]=place_t.[history_place[i]] -> 의도는 이러함 돌아가지는 않는다.  
+		ptr->place[i] = countryName[history_place[i]]; // -> 의도는 이러함 돌아가지는 않는다. 
 	}
-
 
 	//printf("%d %d %d",ptr->index,ptr->age,ptr->time);  
 	return ptr;	
