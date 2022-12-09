@@ -78,20 +78,22 @@ void* ifctele_getElement(int index, int age, unsigned int detected_time, int his
 	ptr->index=index;	
 	ptr->age=age;
 	ptr->time=detected_time;
-	for(i = 0; i < N_HISTORY; i++) ptr->place[i] = history_place[i];
-	//ptr->place=history_place; //-> 배열 형태는 어떻게?
-	//ptr->place[0]=history_place[0]; ptr->palce[1]=history_place[1]; ...? 
 	
-	printf("%i %i",ptr->index,ptr->age); //text용으로 만들어놓은거 
-	
-	//printf("%d %d %d",ptr->index,ptr->age,ptr->time);
+	for(i = 0; i < N_HISTORY; i++){
+		ptr->place[i] = history_place[i];	 //-> 일단 인덱스 잘 출력됨. 
+		//ptr.place[i]=place_t.[history_place[i]] -> 의도는 이러함 돌아가지는 않는다.  
+	}
+
+
+	//printf("%d %d %d",ptr->index,ptr->age,ptr->time);  
 	return ptr;	
 }
 
 
-int ifctele_getAge(void* obj)
+int ifctele_getAge(void* obj, void* obj2)
 {
-	ifs_ele_t* ptr = (ifs_ele_t*)obj;
+	ifs_ele_t* ptr  =(ifs_ele_t*)obj;
+	ifs_ele_t* ptr2 =(ifs_ele_t*)obj2;
 	return ptr->age;
 }
 

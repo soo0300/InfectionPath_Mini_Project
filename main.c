@@ -46,24 +46,22 @@ int main(int argc, const char * argv[]) {
     }
     
 
-	//ifct_element = ifctele_getElement(index,age,,,);
-
-
+	//ifct_element = ifctele_getElement(index,age,,,); -> 교수님 베이스 코드 예시
+	 
+	//while문 대신 for문을 써서 파일의 값을 입력받아 저장하는 코드 
 	for(i = 0; i < 5; i++){
-		fscanf(fp,"%d",&pIndex); //파일의 첫번째 요소를 pIndex로 저장
-		fscanf(fp,"%d",&age);  //파일의 두번째 요소를 age로 저장
-		fscanf(fp,"%d",&time); //파일의 세번째 요소를 time으로 저장
+		fscanf(fp,"%d",&pIndex); //파일의 첫번째 요소를 pIndex 으로 저장
+		fscanf(fp,"%d",&age);  //파일의 두번째 요소를 age 으로 저장
+		fscanf(fp,"%d",&time); //파일의 세번째 요소를 time 으로 저장
 		
 		for(j=0; j<N_HISTORY; j++){
 			fscanf(fp,"%d",(placeHist+j));
 		}  
-		
 		ifct_element = ifctele_getElement(pIndex,age,time,placeHist);
 		ifctdb_addTail(ifct_element); 
-		
 	}
 	 
-	printf("\n- - - - - - - - -\n\n");
+	printf("\n- - - - 파일 입력받았다, 입력 성공- - - - -\n\n");
 	 
     //1-3. FILE pointer close
     fclose(fp);
@@ -101,11 +99,10 @@ int main(int argc, const char * argv[]) {
             	
             	printf("환자의 Index를 입력해주세요: ");
             	scanf("%d",&pIndex);
-            	printf("%d의 정보는... ",pIndex);
+            	printf("%d의 정보는... \n",pIndex);
             	ifctele_printElement(ifctdb_getData(pIndex));
-            
-            	
-                break;
+                
+				break;
                 
             case MENU_PLACE:
                 
@@ -117,6 +114,8 @@ int main(int argc, const char * argv[]) {
             	printf("max age: ");
             	scanf("%d",&age2);
             	
+            	//구현 중... 실행 조건을 보니 나이의 최소와 최대를 우선 입력받는다.
+				//index 0~5까지 환자의 .age가 이 범위 내에 있다면 cnt를 증가하는 함수로 이어져야 할 것  
             	//ifctele_getAge(*age,*age2);
             
                 
