@@ -113,10 +113,10 @@ int main(int argc, const char * argv[]) {
             	scanf("%d",&age);
             	printf("max age: ");
             	scanf("%d",&age2);
-            	
+    
             	//구현 중... 실행 조건을 보니 나이의 최소와 최대를 우선 입력받는다.
 				//index 0~5까지 환자의 .age가 이 범위 내에 있다면 cnt를 증가하는 함수로 이어져야 할 것  
-            	ifctele_getAge(&age,&age2);
+            	ifctele_getAge(age,age2);
             
                 
                 break;

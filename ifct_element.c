@@ -91,17 +91,21 @@ void* ifctele_getElement(int index, int age, unsigned int detected_time, int his
 }
 
 
-int ifctele_getAge(void* obj, void* obj2)
+int ifctele_getAge(int obj, int obj2)
 {
 	int i;	 
 	
-	printf("%d %d",obj,obj2);
+	//printf("%d %d",obj,obj2); 
+	//obj는 최솟값, obj2는 최댓값으로 매개변수로 넘어온 것 
+	//입력마다 수행해야 하기 때문에 void 포인터를 쓰지 않아도 된다
 	
 	for(i=0; i<5; i++){ 
+	
 		ifs_ele_t* ptr = (ifs_ele_t*)ifctdb_getData(i);
+		printf("%d %d %d \n",obj,obj2,ptr->age);
+		 
 		if( obj <= (ptr->age) && obj2 >= (ptr->age) ) {
 			ifctele_printElement(ifctdb_getData(i));
-			
 		}
 			
 	}
@@ -123,8 +127,8 @@ void ifctele_printElement(void* obj)
 	printf("Age : %i\n", ptr->age);
 	printf("Time: %i\n", ptr->time);
 	
+	//인덱스를 밑의 기존의 함수 ifctele_getPlaceName 함수의 매개변수로 전달하여 그대로 출력하면 되었다 
 	for(i = 0; i < N_HISTORY; i++){
-		//인덱스를 밑의 기존의 함수 ifctele_getPlaceName 함수의 매개변수로 전달하여 그대로 출력하면 되었다 
 		printf(ifctele_getPlaceName(ptr->place[i]));
 		printf(" ");
 	}
