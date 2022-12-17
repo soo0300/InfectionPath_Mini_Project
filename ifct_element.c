@@ -80,9 +80,10 @@ void* ifctele_getElement(int index, int age, unsigned int detected_time, int his
 	ptr->age=age;
 	ptr->time=detected_time;
 	
+	
 	for(i = 0; i < N_HISTORY; i++){
 		ptr->place[i] = history_place[i];	 //-> 일단 인덱스 잘 출력됨. 
-		ptr->place[i] = countryName[history_place[i]]; // -> 의도는 이러함 돌아가지는 않는다. 
+		//ptr->place[i] = countryName[history_place[i]]; // -> 의도는 이러함 돌아가지는 않는다. 
 	}
 
 	//printf("%d %d %d",ptr->index,ptr->age,ptr->time);  
@@ -92,9 +93,21 @@ void* ifctele_getElement(int index, int age, unsigned int detected_time, int his
 
 int ifctele_getAge(void* obj, void* obj2)
 {
-	ifs_ele_t* ptr  =(ifs_ele_t*)obj;
-	ifs_ele_t* ptr2 =(ifs_ele_t*)obj2;
-	return ptr->age;
+	int i;	 
+	
+	printf("%d %d",obj,obj2);
+	
+	for(i=0; i<5; i++){ 
+		ifs_ele_t* ptr = (ifs_ele_t*)ifctdb_getData(i);
+		if( obj <= (ptr->age) && obj2 >= (ptr->age) ) {
+			ifctele_printElement(ifctdb_getData(i));
+			
+		}
+			
+	}
+	
+	return 0;
+	//return ptr->age;
 }
 
 
@@ -111,9 +124,12 @@ void ifctele_printElement(void* obj)
 	printf("Time: %i\n", ptr->time);
 	
 	for(i = 0; i < N_HISTORY; i++){
-		printf("%d ", ptr->place[i]);
+		//인덱스를 밑의 기존의 함수 ifctele_getPlaceName 함수의 매개변수로 전달하여 그대로 출력하면 되었다 
+		printf(ifctele_getPlaceName(ptr->place[i]));
+		printf(" ");
 	}
-	//장소 이름으로 대체만 하면된다.  
+	//장소 이름으로 대체만 하면된다
+	//12.17 성공 
 }
 
 char* ifctele_getPlaceName(int placeIndex)
