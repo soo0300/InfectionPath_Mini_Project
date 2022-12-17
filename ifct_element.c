@@ -102,11 +102,21 @@ int ifctele_getAge(int obj, int obj2)
 	for(i=0; i<5; i++){ 
 	
 		ifs_ele_t* ptr = (ifs_ele_t*)ifctdb_getData(i);
-		printf("%d %d %d \n",obj,obj2,ptr->age);
-		 
-		if( obj <= (ptr->age) && obj2 >= (ptr->age) ) {
+		//최댓값, 최솟값, 환자 나이 잘 나오는지 테스트 
+		//printf("%d %d %d \n",obj,obj2,ptr->age);
+		
+		//긱 환자의 나이를 pAge 변수로 저장	
+		int pAge = ptr-> age;
+	
+		//pAge가 최솟값 obj보다 크거나 같고, 
+		//최댓값 obj2보다 작거나 같으면 
+		//그 확자의 정보 출력 
+		if( obj <= pAge && obj2 >= pAge ) {
+			printf("= = = = = = = = = = = = = = = = = = = = = = = = = = = =\n");
 			ifctele_printElement(ifctdb_getData(i));
+			 
 		}
+	
 			
 	}
 	
@@ -132,6 +142,8 @@ void ifctele_printElement(void* obj)
 		printf(ifctele_getPlaceName(ptr->place[i]));
 		printf(" ");
 	}
+	printf("\n");
+	
 	//장소 이름으로 대체만 하면된다
 	//12.17 성공 
 }

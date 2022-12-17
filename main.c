@@ -99,7 +99,7 @@ int main(int argc, const char * argv[]) {
             	
             	printf("환자의 Index를 입력해주세요: ");
             	scanf("%d",&pIndex);
-            	printf("%d의 정보는... \n",pIndex);
+            	printf("%d번 환자의  정보입니다 \n",pIndex);
             	ifctele_printElement(ifctdb_getData(pIndex));
                 
 				break;
