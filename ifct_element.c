@@ -140,8 +140,10 @@ int ifctele_getHistPlaceIndex(void* s){
 		//s== countryName[~] 가 만족하는 경우가 없어서 테스트하기 위해 작성한  코드 
 		//printf("%s %s",s,countryName[ptr->place[N_HISTORY-1]]);
 		
-		if(s == countryName[ptr->place[N_HISTORY-1]]){
-			printf("한명");
+		int compare = strcmp(s,countryName[ptr->place[N_HISTORY-1]]);
+		if(compare==0){
+			//두 문자가 같다는 의미이므로 i idnex의 환자 정보 출력
+			ifctele_printElement(ifctdb_getData(i));
 		}
 	}
 
