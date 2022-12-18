@@ -133,16 +133,16 @@ void ifctele_printElement(void* obj)
 {
 	int i;
 	ifs_ele_t* ptr = (ifs_ele_t*)obj; 
-	printf("NUM : %i\n", ptr->index);
-	printf("Age : %i\n", ptr->age);
-	printf("Time: %i\n", ptr->time);
+	printf("Patient index: %i\n", ptr->index);
+	printf("Patient age: %i\n", ptr->age);
+	printf("Detected time: %i\n", ptr->time);
 	
 	//인덱스를 밑의 기존의 함수 ifctele_getPlaceName 함수의 매개변수로 전달하여 그대로 출력하면 되었다 
 	for(i = 0; i < N_HISTORY; i++){
 		printf(ifctele_getPlaceName(ptr->place[i]));
-		printf(" ");
+		printf("->");
 	}
-	printf("\n");
+	printf("- - - - - - - - - - - - - - - - - - - -\n");
 	
 	//장소 이름으로 대체만 하면된다
 	//12.17 성공 
