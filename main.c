@@ -25,8 +25,7 @@ int main(int argc, const char * argv[]) {
 	//추가 생성 
 	int i,j;
 	int age2;
-
-	//ifs_ele_t arr[5]; 이렇게 해야하는거 아니야?  
+	char ifct_place;
 
 
     //BASE CODE 31줄부터 45줄까지 
@@ -97,14 +96,24 @@ int main(int argc, const char * argv[]) {
                 
             case MENU_PATIENT:
             	
-            	printf("환자의 Index를 입력해주세요: ");
+            	printf("Patient index: ");
             	scanf("%d",&pIndex);
-            	printf("%d번 환자의  정보입니다 \n",pIndex);
+            	printf("- - - - - - - - - - - - - - - - - - - -\n");
             	ifctele_printElement(ifctdb_getData(pIndex));
                 
 				break;
                 
             case MENU_PLACE:
+            	printf("Place Name: ");
+				scanf("%s",&ifct_place);
+				printf("- - - - - - - - - - - - - - - - - - - -\n");
+				//구조 짜놓기 
+                //0~5 index의 환자들의 ifctele_getPlaceName(ptr->place[4]) == ifct_place
+				//위의 조건을 만족한다면 그 환자의 정보 출력하기 
+                //ifctele_getHistPlaceIndex(void* obj, int index); //매개변수 obj에는 ifct_palce
+				
+				
+				ifctele_getHistPlaceIndex(&ifct_place); 
                 
                 break;
                 
@@ -117,8 +126,7 @@ int main(int argc, const char * argv[]) {
             	//구현 중... 실행 조건을 보니 나이의 최소와 최대를 우선 입력받는다.
 				//index 0~5까지 환자의 .age가 이 범위 내에 있다면 cnt를 증가하는 함수로 이어져야 할 것  
             	ifctele_getAge(age,age2);
-            
-                
+            	
                 break;
                 
             case MENU_TRACK:

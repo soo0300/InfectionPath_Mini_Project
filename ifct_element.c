@@ -94,12 +94,14 @@ void* ifctele_getElement(int index, int age, unsigned int detected_time, int his
 int ifctele_getAge(int obj, int obj2)
 {
 	int i;	 
+	int cnt=0;
 	
 	//printf("%d %d",obj,obj2); 
 	//obj는 최솟값, obj2는 최댓값으로 매개변수로 넘어온 것 
 	//입력마다 수행해야 하기 때문에 void 포인터를 쓰지 않아도 된다
 	
 	for(i=0; i<5; i++){ 
+
 	
 		ifs_ele_t* ptr = (ifs_ele_t*)ifctdb_getData(i);
 		//최댓값, 최솟값, 환자 나이 잘 나오는지 테스트 
@@ -111,21 +113,43 @@ int ifctele_getAge(int obj, int obj2)
 		//pAge가 최솟값 obj보다 크거나 같고, 
 		//최댓값 obj2보다 작거나 같으면 
 		//그 확자의 정보 출력 
+		
 		if( obj <= pAge && obj2 >= pAge ) {
 			printf("= = = = = = = = = = = = = = = = = = = = = = = = = = = =\n");
+			cnt++;
 			ifctele_printElement(ifctdb_getData(i));
-			 
-		}
-	
-			
+		}			
 	}
+	
+	//몇명의 확자가 있는지도 추가 출력 , 예제 프로그램과 형식 맞추기 
+	printf("Threr are %d patients whose age between %d and %d",cnt,obj,obj2);
 	
 	return 0;
 	//return ptr->age;
 }
 
+//int ifctele_getHistPlaceIndex(void* obj, int index); -> 기존의 baseCode 
+int ifctele_getHistPlaceIndex(void* s){
+	int i;
+	
+//매개변수가 잘 넘어왔는지 확인한 코드 
+//	printf("%s",s); 
 
-int ifctele_getHistPlaceIndex(void* obj, int index);
+	for(i=0; i<5; i++){ 
+		ifs_ele_t* ptr = (ifs_ele_t*)ifctdb_getData(i);
+		//s== countryName[~] 가 만족하는 경우가 없어서 테스트하기 위해 작성한  코드 
+		//printf("%s %s",s,countryName[ptr->place[N_HISTORY-1]]);
+		
+		if(s == countryName[ptr->place[N_HISTORY-1]]){
+			printf("한명");
+		}
+	}
+
+	return 0;
+	
+}
+
+
 unsigned int ifctele_getinfestedTime(void* obj);
 
 
@@ -140,12 +164,17 @@ void ifctele_printElement(void* obj)
 	//인덱스를 밑의 기존의 함수 ifctele_getPlaceName 함수의 매개변수로 전달하여 그대로 출력하면 되었다 
 	for(i = 0; i < N_HISTORY; i++){
 		printf(ifctele_getPlaceName(ptr->place[i]));
+		
+		//마지막 인덱스에서는 화살표를 출력하지 않기 위한 코드 (기능적X) 
+		if(i==(N_HISTORY-1)){
+			break;
+		}
 		printf("->");
 	}
-	printf("- - - - - - - - - - - - - - - - - - - -\n");
+	printf("\n- - - - - - - - - - - - - - - - - - - -\n");
 	
 	//장소 이름으로 대체만 하면된다
-	//12.17 성공 
+	//성공 
 }
 
 char* ifctele_getPlaceName(int placeIndex)
