@@ -177,7 +177,11 @@ unsigned int ifctele_getinfestedTime(void* obj){
 				continue; 
 				//추적 조건에 만족하지 않으므로 밑에 코드 수행하지 않고 i++  
 			}
+			
+			//밑의 조건들이 중요해보인다 -> 연산 횟수를 감소할 수 있음. 
 			//ptr2->time-1, ptr2->time-2 만 유효한 값이다
+			//위의 값들이 a-4~ a까지의 사이에 있냐. 그 공통된 값들만 탐색
+			
 			 
 			for(){
 				if(ptr2->place[5] )
