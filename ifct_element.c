@@ -153,11 +153,13 @@ int ifctele_getHistPlaceIndex(void* s,int i){
 int ifctele_getinfestedTime(int obj){
 	int i; 
 	int track_1[20];
-	printf("%d",obj);
+	//printf("%d",obj); 매개변수 제대로 넘어왔는지 확인  
 	
 	//obj = pIndex;
 	ifs_ele_t* ptr = (ifs_ele_t*)ifctdb_getData(obj); //기준 인덱스의 () 선언 
+
 	int a = ptr->time;
+	//for문으로 고칠 예정 
 	track_1[ptr->time]  =ptr->place[4];
 	track_1[ptr->time-1]=ptr->place[3];
 	track_1[ptr->time-2]=ptr->place[2];
@@ -181,16 +183,22 @@ int ifctele_getinfestedTime(int obj){
 		//밑의 조건들이 중요해보인다 -> 연산 횟수를 감소할 수 있음. 
 		//ptr2->time, ptr2->time-1 만 유효한 값이다
 		//위의 값들이 a-4~ a까지의 사이에 있냐. 그 공통된 값들만 탐색
-		//밑의 코드가 그 구현 
+		//밑의 코드가 그 구현
+		
+		 
+//		테스트 용도	-> ptr-> tiem을 ptr2->time 으로 추적 기능 해결	
+//		printf("%d %d\n",ptr2->place[4], track_1[ptr2->time]);
+//		printf("%d %d\n\n\n",ptr2->place[3], track_1[ptr2->time-1]);
+	
 		if(   (ptr2->time) >= a-4 && (ptr2->time) <=a ){
-			if(   track_1[ptr->time] == ptr2->place[4] ){
+			if(   track_1[ptr2->time] == ptr2->place[4] ){
 				// index j번째는 i번째를 감염시킨 것이다
 				//위의 두 피연산자는 논리적으로 (방문나라)로 매핑되기 때문에 짠 코드
 				printf("%d 번째의 환자는 %d번째 환자에게 전염되었습니다\n",obj,i); 
 			}
 		}
 		if(   (ptr2->time-1) >= a-4 && (ptr2->time-1) <=a ){
-			if(   track_1[ptr->time-1] == ptr2->place[3] ){
+			if(   track_1[ptr2->time-1] == ptr2->place[3] ){
 				// index j번째는 i번째를 감염시킨 것이다
 				//위의 두 피연산자는 논리적으로 (방문나라)로 매핑되기 때문에 짠 코드
 				printf("%d 번째의 환자는 %d번째 환자에게 전염되었습니다\n",obj,i); 
