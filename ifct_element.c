@@ -48,12 +48,11 @@ typedef enum place {
 } place_t;
 
 char countryName[N_PLACE+1][MAX_PLACENAME] =
-{   "Seoul","Jeju","Tokyo","LosAngeles","NewYork","Texas","Toronto","Paris",
-    "Nice","Rome","Milan","London","Manchester","Basel","Luzern","Munich",
-    "Frankfurt","Berlin","Barcelona","Madrid","Amsterdam","Stockholm","Oslo","Hanoi",
-    "Bangkok","KualaLumpur","Singapore","Sydney","SaoPaulo","Cairo","Beijing","Nairobi",
-	"Cancun","BuenosAires","Reykjavik","Glasgow","Warsow","Istanbul","Dubai","CapeTown",
-	"Unrecognized"
+{   "Seoul","Jeju","Tokyo","LosAngeles","NewYork","Texas","Toronto","Paris","Nice",
+	"Rome","Milan","London","Manchester","Basel","Luzern","Munich","Frankfurt","Berlin",
+	"Barcelona","Madrid","Amsterdam","Stockholm","Oslo","Hanoi","Bangkok","KualaLumpur",
+	"Singapore","Sydney","SaoPaulo","Cairo","Beijing","Nairobi","Cancun","BuenosAires",
+	"Reykjavik","Glasgow","Warsow","Istanbul","Dubai","CapeTown","Unrecognized"
 };
 
 typedef struct ifs_ele {
@@ -150,56 +149,62 @@ int ifctele_getHistPlaceIndex(void* s,int i){
 	return cnt;	
 }
 
-
-unsigned int ifctele_getinfestedTime(void* obj){
-	int i; int j;
+//+unsigned ifctele_getinfestedTime(void* obj); -> 기존 코드 한줄 , 이 형식대로 하니까 매개변수가 제대로 안넘어옴 
+int ifctele_getinfestedTime(int obj){
+	int i; 
+	int track_1[20];
+	printf("%d",obj);
 	
-	int track_1[100];
-	int track_2[100];
+	//obj = pIndex;
+	ifs_ele_t* ptr = (ifs_ele_t*)ifctdb_getData(obj); //기준 인덱스의 () 선언 
+	int a = ptr->time;
+	track_1[ptr->time]  =ptr->place[4];
+	track_1[ptr->time-1]=ptr->place[3];
+	track_1[ptr->time-2]=ptr->place[2];
+	track_1[ptr->time-3]=ptr->place[1];
+	track_1[ptr->time-4]=ptr->place[0];
+		
 	
 	for(i=0; i<5; i++){
-		ifs_ele_t* ptr = (ifs_ele_t*)ifctdb_getData(i); //기준 인덱스의 () 선언 
-		int a = ptr->time;
-		track_1[ptr->time]  =ptr->place[4];
-		track_1[ptr->time-1]=ptr->place[3];
-		track_1[ptr->time-2]=ptr->place[2];
-		track_1[ptr->time-3]=ptr->place[1];
-		track_1[ptr->time-4]=ptr->place[0];
+		if(obj==i){
+			//본인을 비교하는 것이므로 
+			continue;
+		}
+		ifs_ele_t* ptr2 = (ifs_ele_t*)ifctdb_getData(i); //비교 인덱스가 될 () 선언
+		int b = ptr2->time;
 		
-		for(j=0; j<5; j++){
-			int k;
-			if(i==j){
-				continue;
-			}
-			ifs_ele_t* ptr2 = (ifs_ele_t*)ifctdb_getData(j); //비교 인덱스가 될 () 선언
-			int b = ptr2->time;
-			if(a>b){
-				continue; 
-				//추적 조건에 만족하지 않으므로 밑에 코드 수행하지 않고 i++  
-			}
-			
-			//밑의 조건들이 중요해보인다 -> 연산 횟수를 감소할 수 있음. 
-			//ptr2->time, ptr2->time-1 만 유효한 값이다
-			//위의 값들이 a-4~ a까지의 사이에 있냐. 그 공통된 값들만 탐색
-			//밑의 코드가 그 구현 
-			if(   (ptr2->time) >= a-4 && (ptr2->time) <=a ){
-					if(   track_1[ptr->time] == ptr2->place[4] ){
-						// index j번째는 i번째를 감염시킨 것이다
-						//위의 두 피연산자는 논리적으로 (방문나라)로 매핑되기 때문에 짠 코드
-						printf("%d 번째의 환자는 %d번째 환자에게 전염되었습니다\n",i,j); 
-					}
-			}
-			
+		if(a<b){
+			continue; 
+			//추적 조건에 만족하지 않으므로 밑에 코드 수행하지 않고 i++  
+		}
 		
-		
-		}		 
+		//밑의 조건들이 중요해보인다 -> 연산 횟수를 감소할 수 있음. 
+		//ptr2->time, ptr2->time-1 만 유효한 값이다
+		//위의 값들이 a-4~ a까지의 사이에 있냐. 그 공통된 값들만 탐색
+		//밑의 코드가 그 구현 
+		if(   (ptr2->time) >= a-4 && (ptr2->time) <=a ){
+			if(   track_1[ptr->time] == ptr2->place[4] ){
+				// index j번째는 i번째를 감염시킨 것이다
+				//위의 두 피연산자는 논리적으로 (방문나라)로 매핑되기 때문에 짠 코드
+				printf("%d 번째의 환자는 %d번째 환자에게 전염되었습니다\n",obj,i); 
+			}
+		}
+		if(   (ptr2->time-1) >= a-4 && (ptr2->time-1) <=a ){
+			if(   track_1[ptr->time-1] == ptr2->place[3] ){
+				// index j번째는 i번째를 감염시킨 것이다
+				//위의 두 피연산자는 논리적으로 (방문나라)로 매핑되기 때문에 짠 코드
+				printf("%d 번째의 환자는 %d번째 환자에게 전염되었습니다\n",obj,i); 
+			}
+		}
 	}
-	
+	return 0;
+
 }
 
 
 void ifctele_printElement(void* obj)
 {
+	printf("%d",obj);
 	int i;
 	ifs_ele_t* ptr = (ifs_ele_t*)obj; 
 	printf("Patient index: %i\n", ptr->index);

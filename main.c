@@ -26,7 +26,7 @@ int main(int argc, const char * argv[]) {
 	int i,j;
 	int age2;
 	char ifct_place;
-
+	
 
     //BASE CODE 31줄부터 45줄까지 
     //------------- 1. loading patient info file ------------------------------
@@ -132,7 +132,11 @@ int main(int argc, const char * argv[]) {
                 break;
                 
             case MENU_TRACK:
-                    
+        
+            	printf("Patient index: ");
+            	scanf("%d",&pIndex);
+        		ifctele_getinfestedTime(pIndex);
+        		
                 break;
                 
             default:
