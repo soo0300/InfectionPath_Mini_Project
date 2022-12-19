@@ -64,7 +64,6 @@ typedef struct ifs_ele {
 } ifs_ele_t;
 
 
-
 //아래 함수를 통해 만들어진 구조체 변수가 가르키는 주소가  함수의 반환값이 되어서 나옴
 //이를 main.c에서 ifc_element가 받을 예정 
 //메인에서 ifc_element를 반환값으로 받고 이를 linked list에 넣는다. adddTail사용하라는데 무슨의미일까
@@ -194,7 +193,9 @@ int ifctele_getinfestedTime(int obj){
 			if(   track_1[ptr2->time] == ptr2->place[4] ){
 				// index j번째는 i번째를 감염시킨 것이다
 				//위의 두 피연산자는 논리적으로 (방문나라)로 매핑되기 때문에 짠 코드
-				printf("%d 번째의 환자는 %d번째 환자에게 전염되었습니다\n",obj,i); 
+				printf("%d 번째의 환자는 %d번째 환자에게 전염되었습니다\n",obj,i);
+				printf("전염시간: %d, 전염장소: %s (%d)\n",ptr2->time,ifctele_getPlaceName(ptr2->place[4]),ptr2->place[4]);
+				 
 			}
 		}
 		if(   (ptr2->time-1) >= a-4 && (ptr2->time-1) <=a ){
@@ -202,6 +203,7 @@ int ifctele_getinfestedTime(int obj){
 				// index j번째는 i번째를 감염시킨 것이다
 				//위의 두 피연산자는 논리적으로 (방문나라)로 매핑되기 때문에 짠 코드
 				printf("%d 번째의 환자는 %d번째 환자에게 전염되었습니다\n",obj,i); 
+				printf("전염시간: %d, 전염장소: %s (%d)\n",ptr2->time-1,ifctele_getPlaceName(ptr2->place[3]),ptr2->place[3]);
 			}
 		}
 	}
@@ -222,6 +224,7 @@ void ifctele_printElement(void* obj)
 	//인덱스를 밑의 기존의 함수 ifctele_getPlaceName 함수의 매개변수로 전달하여 그대로 출력하면 되었다 
 	for(i = 0; i < N_HISTORY; i++){
 		printf(ifctele_getPlaceName(ptr->place[i]));
+		printf("(%d)",ptr->place[i]);
 		
 		//마지막 인덱스에서는 화살표를 출력하지 않기 위한 코드 (기능적X) 
 		if(i==(N_HISTORY-1)){
