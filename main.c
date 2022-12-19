@@ -111,9 +111,11 @@ int main(int argc, const char * argv[]) {
                 //0~5 index의 환자들의 ifctele_getPlaceName(ptr->place[4]) == ifct_place
 				//위의 조건을 만족한다면 그 환자의 정보 출력하기 
                 //ifctele_getHistPlaceIndex(void* obj, int index); //매개변수 obj에는 ifct_palce
-				
-				
-				ifctele_getHistPlaceIndex(&ifct_place); 
+				int cnt=0;
+				for(i=0; i<N_HISTORY; i++){
+					cnt=cnt+ifctele_getHistPlaceIndex(&ifct_place,i);
+				}
+				printf("%d명의 환자가 %s에서 확인되었습니다\n\n",cnt,ifct_place);
                 
                 break;
                 

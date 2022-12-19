@@ -122,37 +122,76 @@ int ifctele_getAge(int obj, int obj2)
 	}
 	
 	//몇명의 확자가 있는지도 추가 출력 , 예제 프로그램과 형식 맞추기 
-	printf("Threr are %d patients whose age between %d and %d",cnt,obj,obj2);
-	
+	printf("Threr are %d patients whose age between %d and %d\n\n",cnt,obj,obj2);
 	return 0;
-	//return ptr->age;
 }
 
 //int ifctele_getHistPlaceIndex(void* obj, int index); -> 기존의 baseCode 
-int ifctele_getHistPlaceIndex(void* s){
-	int i;
+int ifctele_getHistPlaceIndex(void* s,int i){
+	int cnt=0;
 	
 //매개변수가 잘 넘어왔는지 확인한 코드 
 //	printf("%s",s); 
 
-	for(i=0; i<5; i++){ 
-		ifs_ele_t* ptr = (ifs_ele_t*)ifctdb_getData(i);
-		//s== countryName[~] 가 만족하는 경우가 없어서 테스트하기 위해 작성한  코드 
-		//printf("%s %s",s,countryName[ptr->place[N_HISTORY-1]]);
+	ifs_ele_t* ptr = (ifs_ele_t*)ifctdb_getData(i);
+	//s== countryName[~] 가 만족하는 경우가 없어서 테스트하기 위해 작성한  코드 
+	//printf("%s %s",s,countryName[ptr->place[N_HISTORY-1]]);
 		
-		int compare = strcmp(s,countryName[ptr->place[N_HISTORY-1]]);
-		if(compare==0){
-			//두 문자가 같다는 의미이므로 i idnex의 환자 정보 출력
-			ifctele_printElement(ifctdb_getData(i));
-		}
+	int compare = strcmp(s,countryName[ptr->place[N_HISTORY-1]]);
+	if(compare==0){
+		//두 문자가 같다는 의미이므로 i idnex의 환자 정보 출력
+		ifctele_printElement(ifctdb_getData(i));
+		cnt++;
 	}
-
-	return 0;
 	
+	//몇명의 확자가 있는지도 추가 출력 , 예제 프로그램과 형식 맞추기 
+	//+수정, 반환값을 조건을 만족하는 환자의수로 반환해보자  
+
+	return cnt;	
 }
 
 
-unsigned int ifctele_getinfestedTime(void* obj);
+unsigned int ifctele_getinfestedTime(void* obj){
+	int i; int j;
+	
+	int track_1[100][40];
+	int track_2[100][40];
+	
+	for(i=0; i<5; i++){
+		ifs_ele_t* ptr = (ifs_ele_t*)ifctdb_getData(i); //기준 인덱스의 () 선언 
+		int a = ptr->time;
+		track_1[ptr->time][ptr->place[4]]+=1;
+		track_1[ptr->time-1][ptr->place[3]]+=1;
+		track_1[ptr->time-2][ptr->place[2]]+=1;
+		track_1[ptr->time-3][ptr->place[1]]+=1;
+		track_1[ptr->time-4][ptr->place[0]]+=1;
+		
+		for(j=0; j<5; j++){
+			int k;
+			if(i==j){
+				continue;
+			}
+			ifs_ele_t* ptr2 = (ifs_ele_t*)ifctdb_getData(j); //비교 인덱스가 될 () 선언
+			int b = ptr2->time;
+			if(a>b){
+				continue; 
+				//추적 조건에 만족하지 않으므로 밑에 코드 수행하지 않고 i++  
+			}
+			//ptr2->time-1, ptr2->time-2 만 유효한 값이다
+			 
+			for(){
+				if(ptr2->place[5] )
+				
+				
+			}
+			
+		}
+
+		//for문 돌고
+		 
+	}
+	
+}
 
 
 void ifctele_printElement(void* obj)
