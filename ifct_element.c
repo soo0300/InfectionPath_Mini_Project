@@ -105,7 +105,7 @@ int ifctele_getAge(int obj, int obj2)
 		//최댓값, 최솟값, 환자 나이 잘 나오는지 테스트 
 		//printf("%d %d %d \n",obj,obj2,ptr->age);
 		
-		//긱 환자의 나이를 pAge 변수로 저장	
+		//각  환자의 나이를 pAge 변수로 저장	
 		int pAge = ptr-> age;
 	
 		//pAge가 최솟값 obj보다 크거나 같고, 
@@ -148,6 +148,9 @@ int ifctele_getHistPlaceIndex(void* s,int i){
 	return cnt;	
 }
 
+//최초 전파자 연산을 위한 배열 변수 추가, 연산 유무 판단을 위해 -1로 초기화 
+static int fst_arr[5] = {-1,-1,-1,-1,-1};
+
 //+unsigned ifctele_getinfestedTime(void* obj); -> 기존 코드 한줄 , 이 형식대로 하니까 매개변수가 제대로 안넘어옴 
 int ifctele_getinfestedTime(int obj){
 	int i; 
@@ -165,12 +168,6 @@ int ifctele_getinfestedTime(int obj){
 	track_1[ptr->time-3]=ptr->place[1];
 	track_1[ptr->time-4]=ptr->place[0];
 	
-	//최초 전파자 연산을 위한 배열 변수 추가, 연산 유무 판단을 위해 -1로 초기화 
-	static int fst_arr[5]; int k;
-	for(k=0; k<5; k++){
-		fst_arr[k]=-1;
-	}
-	static int fst;
 	
 	for(i=0; i<5; i++){
 		if(obj==i){
@@ -202,29 +199,48 @@ int ifctele_getinfestedTime(int obj){
 				printf("%d 번째의 환자는 %d번째 환자에게 전염되었습니다\n",obj,i);
 				printf("전염시간: %d, 전염장소: %s (%d)\n",ptr2->time,ifctele_getPlaceName(ptr2->place[4]),ptr2->place[4]);
 				
-				 
-				//arr[전파자] = 전파당한 환자 
-				//arr[i]가 이미 있다면, 최초 전파자는 
+				//arr[감염자] = 전파자 
+				//arr[obj]의 값이 이미 있다면, 최초 전파자는 연결해줘야 함 
 				if(fst_arr[obj]!=-1){
-					fst_arr[i] = fst_arr[obj]; 
+					fst_arr[obj] = fst_arr[i]; 
 					//1번의 전파자 -> 0번에서 
 					//0번의 전파자 -> 2번 값으로 연결
-		 
+					
 				} else{
 					//전파자가 전에 전파시킨 환자가 없으면 
 					//현재 상황을 배열에 기록하고 넘어간다 
-					fst_arr[i]=obj;
+					fst_arr[obj]=i;
+					
 				}
-				 
+				printf("%d\n\n",fst_arr[obj]); 
 			}
 		}
+		
 		if(   (ptr2->time-1) >= a-4 && (ptr2->time-1) <=a ){
 			if(   track_1[ptr2->time-1] == ptr2->place[3] ){
 				// index j번째는 i번째를 감염시킨 것이다
 				//위의 두 피연산자는 논리적으로 (방문나라)로 매핑되기 때문에 짠 코드
 				printf("%d 번째의 환자는 %d번째 환자에게 전염되었습니다\n",obj,i); 
 				printf("전염시간: %d, 전염장소: %s (%d)\n",ptr2->time-1,ifctele_getPlaceName(ptr2->place[3]),ptr2->place[3]);
-				fst = i;
+				
+
+				
+				//arr[감염자] = 전파자 
+				//arr[obj]의 값이 이미 있다면, 최초 전파자는 연결해줘야 함 
+				if(fst_arr[obj]!=-1){
+					fst_arr[obj] = fst_arr[i]; 
+					//1번의 전파자 -> 0번에서 
+					//0번의 전파자 -> 2번 값으로 연결
+					
+				} else{
+					//전파자가 전에 전파시킨 환자가 없으면 
+					//현재 상황을 배열에 기록하고 넘어간다 
+					fst_arr[obj]=i;
+					
+				}
+				printf("%d\n\n",fst_arr[obj]); 
+
+	
 			}
 		}
 		
@@ -236,6 +252,7 @@ int ifctele_getinfestedTime(int obj){
 		printf("\최초 전파자는 %d번째 환자입니다",fst_arr[obj]); 
 	}
 	return 0;
+	
 
 }
 
