@@ -158,13 +158,19 @@ int ifctele_getinfestedTime(int obj){
 	ifs_ele_t* ptr = (ifs_ele_t*)ifctdb_getData(obj); //기준 인덱스의 () 선언 
 
 	int a = ptr->time;
-	//for문으로 고칠 예정 
+	//매핑시키는 과정 
 	track_1[ptr->time]  =ptr->place[4];
 	track_1[ptr->time-1]=ptr->place[3];
 	track_1[ptr->time-2]=ptr->place[2];
 	track_1[ptr->time-3]=ptr->place[1];
 	track_1[ptr->time-4]=ptr->place[0];
-		
+	
+	//최초 전파자 연산을 위한 배열 변수 추가, 연산 유무 판단을 위해 -1로 초기화 
+	static int fst_arr[5]; int k;
+	for(k=0; k<5; k++){
+		fst_arr[k]=-1;
+	}
+	static int fst;
 	
 	for(i=0; i<5; i++){
 		if(obj==i){
@@ -195,6 +201,20 @@ int ifctele_getinfestedTime(int obj){
 				//위의 두 피연산자는 논리적으로 (방문나라)로 매핑되기 때문에 짠 코드
 				printf("%d 번째의 환자는 %d번째 환자에게 전염되었습니다\n",obj,i);
 				printf("전염시간: %d, 전염장소: %s (%d)\n",ptr2->time,ifctele_getPlaceName(ptr2->place[4]),ptr2->place[4]);
+				
+				 
+				//arr[전파자] = 전파당한 환자 
+				//arr[i]가 이미 있다면, 최초 전파자는 
+				if(fst_arr[obj]!=-1){
+					fst_arr[i] = fst_arr[obj]; 
+					//1번의 전파자 -> 0번에서 
+					//0번의 전파자 -> 2번 값으로 연결
+		 
+				} else{
+					//전파자가 전에 전파시킨 환자가 없으면 
+					//현재 상황을 배열에 기록하고 넘어간다 
+					fst_arr[i]=obj;
+				}
 				 
 			}
 		}
@@ -204,8 +224,16 @@ int ifctele_getinfestedTime(int obj){
 				//위의 두 피연산자는 논리적으로 (방문나라)로 매핑되기 때문에 짠 코드
 				printf("%d 번째의 환자는 %d번째 환자에게 전염되었습니다\n",obj,i); 
 				printf("전염시간: %d, 전염장소: %s (%d)\n",ptr2->time-1,ifctele_getPlaceName(ptr2->place[3]),ptr2->place[3]);
+				fst = i;
 			}
 		}
+		
+	}
+	
+	if(obj==fst_arr[obj]){
+		printf("\n최초 전파자는 %d번 환자 본인입니다",i);
+	} else{
+		printf("\최초 전파자는 %d번째 환자입니다",fst_arr[obj]); 
 	}
 	return 0;
 
