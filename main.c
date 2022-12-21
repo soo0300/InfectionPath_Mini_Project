@@ -61,7 +61,8 @@ int main(int argc, const char * argv[]) {
 		ifctdb_addTail(ifct_element); 
 	}
 	 
-	printf("\n- - - - 파일 입력받았다, 입력 성공- - - - -\n\n");
+	//printf("\n- - - - 파일 입력받았다, 입력 성공- - - - -\n\n");
+	printf("\n- - - - 어서 오세요. 1811103 김수진 프로젝트입니다 >_< - - - - -\n\n");
 	 
     //1-3. FILE pointer close
     fclose(fp);
