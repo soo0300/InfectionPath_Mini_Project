@@ -125,27 +125,24 @@ int ifctele_getAge(int obj, int obj2)
 }
 
 //int ifctele_getHistPlaceIndex(void* obj, int index); -> 기존의 baseCode 
-int ifctele_getHistPlaceIndex(void* s,int i){
-	int cnt=0;
+int ifctele_getHistPlaceIndex(void* s){
 	
-//매개변수가 잘 넘어왔는지 확인한 코드 
-//	printf("%s",s); 
+	int i;	int cnt=0;
+	for(i=0; i<5; i++){ 
+		ifs_ele_t* ptr = (ifs_ele_t*)ifctdb_getData(i);
+		//s== countryName[~] 가 만족하는 경우가 없어서 테스트하기 위해 작성한  코드 
+		//printf("%s %s",s,countryName[ptr->place[N_HISTORY-1]]);
 
-	ifs_ele_t* ptr = (ifs_ele_t*)ifctdb_getData(i);
-	//s== countryName[~] 가 만족하는 경우가 없어서 테스트하기 위해 작성한  코드 
-	//printf("%s %s",s,countryName[ptr->place[N_HISTORY-1]]);
-		
-	int compare = strcmp(s,countryName[ptr->place[N_HISTORY-1]]);
-	if(compare==0){
-		//두 문자가 같다는 의미이므로 i idnex의 환자 정보 출력
-		ifctele_printElement(ifctdb_getData(i));
-		cnt++;
+		int compare = strcmp(s,countryName[ptr->place[N_HISTORY-1]]);
+		if(compare==0){
+			ifctele_printElement(ifctdb_getData(i));
+			cnt+=1;
+
+		}
 	}
 	
-	//몇명의 확자가 있는지도 추가 출력 , 예제 프로그램과 형식 맞추기 
-	//+수정, 반환값을 조건을 만족하는 환자의수로 반환해보자  
-
-	return cnt;	
+	printf("%s에서 ",s); //장소 출력, 명수(cnt)는 반환값으로 전달하여 메인함수에서 이어서 출력하도록 코딩 
+	return cnt;
 }
 
 //최초 전파자 연산을 위한 배열 변수 추가, 연산 유무 판단을 위해 -1로 초기화 
@@ -259,7 +256,6 @@ int ifctele_getinfestedTime(int obj){
 
 void ifctele_printElement(void* obj)
 {
-	printf("%d",obj);
 	int i;
 	ifs_ele_t* ptr = (ifs_ele_t*)obj; 
 	printf("Patient index: %i\n", ptr->index);

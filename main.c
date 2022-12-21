@@ -22,13 +22,12 @@ int main(int argc, const char * argv[]) {
     int pIndex, age, time;
     int placeHist[N_HISTORY];
     
-	//추가 생성 
+	//변수 추가 생성 
 	int i,j;
 	int age2;
 	char ifct_place;
 	
-
-    //BASE CODE 31줄부터 45줄까지 
+	
     //------------- 1. loading patient info file ------------------------------
     //1-1. FILE pointer open
     if (argc != 2)
@@ -65,15 +64,16 @@ int main(int argc, const char * argv[]) {
     //1-3. FILE pointer close
     fclose(fp);
     
-    {
-    	int place1, place2;
-    	
-		place1 = 3;
-    	place2 = 15;
-    	
-    	printf("The first place is %s\n", ifctele_getPlaceName(place1)) ;
-    	printf("The second place is %s\n", ifctele_getPlaceName(place2)) ;
-	}
+//    프로젝트 기존 baseCode   
+//    {
+//    	int place1, place2;
+//    	
+//		place1 = 3;
+//    	place2 = 15;
+//    	
+//    	printf("The first place is %s\n", ifctele_getPlaceName(place1)) ;
+//    	printf("The second place is %s\n", ifctele_getPlaceName(place2)) ;
+//	}
     
     do {
         printf("\n=============== INFECTION PATH MANAGEMENT PROGRAM (No. of patients : %i) =============\n", ifctdb_len());
@@ -109,14 +109,11 @@ int main(int argc, const char * argv[]) {
 				printf("- - - - - - - - - - - - - - - - - - - -\n");
 				//구조 짜놓기 
                 //0~5 index의 환자들의 ifctele_getPlaceName(ptr->place[4]) == ifct_place
-				//위의 조건을 만족한다면 그 환자의 정보 출력하기 
-                //ifctele_getHistPlaceIndex(void* obj, int index); //매개변수 obj에는 ifct_palce
-				int cnt=0;
-				for(i=0; i<N_HISTORY; i++){
-					cnt=cnt+ifctele_getHistPlaceIndex(&ifct_place,i);
-				}
-				printf("%d명의 환자가 %s에서 확인되었습니다\n\n",cnt,ifct_place);
-                
+				//위의 조건을 만족한다면 그 환자의 정보 출력하기 -> 이를 element.c파일에서 구현하게 함. 
+        		
+        		//ex) Seoul 에서 - 에 이어서 출력하는 것 
+				printf("%d명의 Patient가 감염 확인이 되었습습니다",ifctele_getHistPlaceIndex(&ifct_place));
+			
                 break;
                 
             case MENU_AGE:
