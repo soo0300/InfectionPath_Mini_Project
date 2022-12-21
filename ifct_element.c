@@ -96,7 +96,6 @@ int ifctele_getAge(int obj, int obj2)
 	
 	//printf("%d %d",obj,obj2); 
 	//obj는 최솟값, obj2는 최댓값으로 매개변수로 넘어온 것 
-	//입력마다 수행해야 하기 때문에 void 포인터를 쓰지 않아도 된다
 	
 	for(i=0; i<5; i++){ 
 
@@ -124,7 +123,7 @@ int ifctele_getAge(int obj, int obj2)
 	return 0;
 }
 
-//int ifctele_getHistPlaceIndex(void* obj, int index); -> 기존의 baseCode 
+
 int ifctele_getHistPlaceIndex(void* s){
 	
 	int i;	int cnt=0;
@@ -141,13 +140,13 @@ int ifctele_getHistPlaceIndex(void* s){
 		}
 	}
 	
-	printf("%s에서 ",s); //장소 출력, 명수(cnt)는 반환값으로 전달하여 메인함수에서 이어서 출력하도록 코딩 
+	printf("%s에서 ",s); //장소 출력, 명수(cnt) 
 	return cnt;
 }
 
 //최초 전파자 연산을 위한 배열 변수 추가, 연산 유무 판단을 위해 -1로 초기화 
 static int fst_arr[5] = {-1,-1,-1,-1,-1};
-
+        
 //+unsigned ifctele_getinfestedTime(void* obj); -> 기존 코드 한줄 , 이 형식대로 하니까 매개변수가 제대로 안넘어옴 
 int ifctele_getinfestedTime(int obj){
 	int i; 
@@ -163,9 +162,8 @@ int ifctele_getinfestedTime(int obj){
 	track_1[ptr->time-1]=ptr->place[3];
 	track_1[ptr->time-2]=ptr->place[2];
 	track_1[ptr->time-3]=ptr->place[1];
-	track_1[ptr->time-4]=ptr->place[0];
-	
-	
+	track_1[ptr->time-4]=ptr->place[0];	
+
 	for(i=0; i<5; i++){
 		if(obj==i){
 			//본인을 비교하는 것이므로 
@@ -189,16 +187,20 @@ int ifctele_getinfestedTime(int obj){
 //		printf("%d %d\n",ptr2->place[4], track_1[ptr2->time]);
 //		printf("%d %d\n\n\n",ptr2->place[3], track_1[ptr2->time-1]);
 	
+
 		if(   (ptr2->time) >= a-4 && (ptr2->time) <=a ){
 			if(   track_1[ptr2->time] == ptr2->place[4] ){
 				// index j번째는 i번째를 감염시킨 것이다
 				//위의 두 피연산자는 논리적으로 (방문나라)로 매핑되기 때문에 짠 코드
 				printf("%d 번째의 환자는 %d번째 환자에게 전염되었습니다\n",obj,i);
 				printf("전염시간: %d, 전염장소: %s (%d)\n",ptr2->time,ifctele_getPlaceName(ptr2->place[4]),ptr2->place[4]);
-				
+				 
 				//arr[감염자] = 전파자 
 				//arr[obj]의 값이 이미 있다면, 최초 전파자는 연결해줘야 함 
-				if(fst_arr[obj]!=-1){
+				
+				
+				//4번 기능 완성,, 드디어 최초 감염자 정답 나옴,, 203번줄에 obj를 i로 바꿔야 했다 
+				if(fst_arr[i]!=-1){
 					fst_arr[obj] = fst_arr[i]; 
 					//1번의 전파자 -> 0번에서 
 					//0번의 전파자 -> 2번 값으로 연결
@@ -209,14 +211,14 @@ int ifctele_getinfestedTime(int obj){
 					fst_arr[obj]=i;
 					
 				}
-				printf("%d\n\n",fst_arr[obj]); 
+		
 			}
 		}
 		
 		if(   (ptr2->time-1) >= a-4 && (ptr2->time-1) <=a ){
 			if(   track_1[ptr2->time-1] == ptr2->place[3] ){
 				// index j번째는 i번째를 감염시킨 것이다
-				//위의 두 피연산자는 논리적으로 (방문나라)로 매핑되기 때문에 짠 코드
+				//위의 두 피연산자는 논리적으로 (방문 나라)로 매핑되기 때문에 짠 코드
 				printf("%d 번째의 환자는 %d번째 환자에게 전염되었습니다\n",obj,i); 
 				printf("전염시간: %d, 전염장소: %s (%d)\n",ptr2->time-1,ifctele_getPlaceName(ptr2->place[3]),ptr2->place[3]);
 				
@@ -224,7 +226,7 @@ int ifctele_getinfestedTime(int obj){
 				
 				//arr[감염자] = 전파자 
 				//arr[obj]의 값이 이미 있다면, 최초 전파자는 연결해줘야 함 
-				if(fst_arr[obj]!=-1){
+				if(fst_arr[i]!=-1){
 					fst_arr[obj] = fst_arr[i]; 
 					//1번의 전파자 -> 0번에서 
 					//0번의 전파자 -> 2번 값으로 연결
@@ -235,18 +237,16 @@ int ifctele_getinfestedTime(int obj){
 					fst_arr[obj]=i;
 					
 				}
-				printf("%d\n\n",fst_arr[obj]); 
-
 	
 			}
 		}
 		
 	}
 	
-	if(obj==fst_arr[obj]){
-		printf("\n최초 전파자는 %d번 환자 본인입니다",i);
+	if(fst_arr[obj]==-1){
+		printf("\n최초 전파자는 %d번 환자 본인입니다\n\n",obj);
 	} else{
-		printf("\최초 전파자는 %d번째 환자입니다",fst_arr[obj]); 
+		printf("\n최초 전파자는 %d번째 환자입니다\n\n",fst_arr[obj]); 
 	}
 	return 0;
 	

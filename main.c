@@ -26,8 +26,7 @@ int main(int argc, const char * argv[]) {
 	int i,j;
 	int age2;
 	char ifct_place;
-	
-	
+
     //------------- 1. loading patient info file ------------------------------
     //1-1. FILE pointer open
     if (argc != 2)
@@ -55,7 +54,10 @@ int main(int argc, const char * argv[]) {
 		for(j=0; j<N_HISTORY; j++){
 			fscanf(fp,"%d",(placeHist+j));
 		}  
+		
+		//void 포인터 형 변수 ifct_element에 입력받은 매개변수들로 하여금 요소들을 저장하고 -> 제출 전 주석만 추가  
 		ifct_element = ifctele_getElement(pIndex,age,time,placeHist);
+		//위와 이어서 ifct_element를 linked list에 이어서 활용할 수 있게 됨  -> 제출 전 주석만 추가 
 		ifctdb_addTail(ifct_element); 
 	}
 	 
@@ -124,12 +126,12 @@ int main(int argc, const char * argv[]) {
     
             	//구현 중... 실행 조건을 보니 나이의 최소와 최대를 우선 입력받는다.
 				//index 0~5까지 환자의 .age가 이 범위 내에 있다면 cnt를 증가하는 함수로 이어져야 할 것  
+				//완성 
             	ifctele_getAge(age,age2);
             	
                 break;
                 
             case MENU_TRACK:
-        
             	printf("Patient index: ");
             	scanf("%d",&pIndex);
         		ifctele_getinfestedTime(pIndex);
